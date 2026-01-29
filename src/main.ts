@@ -1,13 +1,16 @@
 
 import * as readline from "readline";
+import { Lexer } from "./lexer.js";
+import { Token } from "./token.js";
+import type { promises } from "fs";
 
-  const read= async ()=>{
+  const read= async ():Promise<string>=>{
  const reader=readline.createInterface({
     input: process.stdin,
     output: process.stdout,
   });
 
-  return new Promise((resolve)=>{
+  return new Promise<string>((resolve)=>{
   reader.question(">>>",(line:string)=>{
     reader.close();
      resolve(line);
@@ -17,9 +20,10 @@ import * as readline from "readline";
  }
 
  const main=async()=>{
+
 while(true){
  
-    const input=await read();
+    const input:string=await read();
 
     if(input==="#exit"){
         console.log("Exiting....")
@@ -30,9 +34,12 @@ while(true){
         console.log(">> ");
         continue;
     } 
+    
+    const lexer=new Lexer(input);
 
-    // create Lexer
-    console.log(">> " ,input);
+    const token :Token[]=lexer.tokenize();
+
+    console.log(">> " ,token);
 
 }
  
