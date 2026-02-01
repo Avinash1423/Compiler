@@ -15,7 +15,6 @@ export type TokenType=
              "COLON"|
              "SEMI-COLON"|
              "COMMA"|
-             "UNDEFINED"|
              "EOF";
 
 export class Token{

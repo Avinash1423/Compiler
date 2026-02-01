@@ -2,7 +2,9 @@
 import * as readline from "readline";
 import { Lexer } from "./lexer.js";
 import { Token } from "./token.js";
-import type { promises } from "fs";
+import { Parser } from "./parser.js";
+import type { Expr } from "./ast.js";
+
 
   const read= async ():Promise<string>=>{
  const reader=readline.createInterface({
@@ -37,9 +39,15 @@ while(true){
     
     const lexer=new Lexer(input);
 
-    const token :Token[]=lexer.tokenize();
+     const tokens :Token[]=lexer.tokenize();
 
-    console.log(">> " ,token);
+      const parser=new Parser(tokens);
+
+     const parsedOutput :Expr=parser.parse();
+
+
+       console.log(parsedOutput);
+  
 
 }
  

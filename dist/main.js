@@ -1,6 +1,7 @@
 import * as readline from "readline";
 import { Lexer } from "./lexer.js";
 import { Token } from "./token.js";
+import { Parser } from "./parser.js";
 const read = async () => {
     const reader = readline.createInterface({
         input: process.stdin,
@@ -26,8 +27,10 @@ const main = async () => {
             continue;
         }
         const lexer = new Lexer(input);
-        const token = lexer.tokenize();
-        console.log(">> ", token);
+        const tokens = lexer.tokenize();
+        const parser = new Parser(tokens);
+        const parsedOutput = parser.parse();
+        console.log(parsedOutput);
     }
 };
 main();

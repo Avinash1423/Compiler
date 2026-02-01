@@ -101,8 +101,7 @@ import {Token } from "./token.js";
           switch(ch){
 
             default:
-                 this.tokens.push(new Token("UNDEFINED",this.advance()));
-                 break;
+               throw new Error("Undefined Chracter in input : "+ch);
 
             case "+":
                   this.tokens.push(new Token("PLUS",this.advance()));
@@ -149,8 +148,7 @@ import {Token } from "./token.js";
                    break;
             
             
-            
-  
+        
           }
 
            continue;
