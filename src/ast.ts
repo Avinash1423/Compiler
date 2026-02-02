@@ -7,6 +7,4 @@ export type Identifier={ kind:"IDENTIFIER",value:string }
 export type BinaryExpr={ kind:"BINARYEXPR"  ,
                          value:string,
                          left:Expr,
-                         right:Expr
-                           
-                                     }  
+                         right:Expr  }  

@@ -60,7 +60,7 @@ export class Parser{
         let left=this.term();
 
 
-        if(this.match("PLUS","MINUS")){
+        while(this.match("PLUS","MINUS")){
          
         let operator=this.tokens[this.pos-1]?.value!;
         let right=this.term();
@@ -72,7 +72,6 @@ export class Parser{
             value:operator,
             left:left,
             right:right
-
 
         }
 
@@ -86,7 +85,7 @@ export class Parser{
        
         let left=this.factor();
 
-        if(this.match("DIVIDE","MULTIPLY")){
+        while(this.match("DIVIDE","MULTIPLY","MODULUS")){
 
         let operator=this.tokens[this.pos-1]?.value!;
         let right=this.factor();

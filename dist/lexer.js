@@ -97,6 +97,9 @@ export class Lexer {
                 case "!":
                     this.tokens.push(new Token("EXCLAMATION", this.advance()));
                     break;
+                case "%":
+                    this.tokens.push(new Token("MODULUS", this.advance()));
+                    break;
             }
             continue;
         }
