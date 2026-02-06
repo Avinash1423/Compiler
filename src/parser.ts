@@ -1,6 +1,7 @@
 import {Token } from "./token.js";
 import type { Expr } from "./ast.js";
 import type {Stmt} from "./ast.js"
+import type { Program } from "./ast.js";
 
 export class Parser{
 
@@ -45,9 +46,9 @@ export class Parser{
     }
 
 
-    parse():Stmt[]{
+    parse():Program{
 
-        let arrayOfStatments:Stmt[]=[];
+    let arrayOfStatments:Stmt[]=[];//body
 
      while(this.peek().type !=="EOF"){
 
@@ -55,8 +56,11 @@ export class Parser{
      }   
 
        
-       return arrayOfStatments;
-      // return this.expression();
+       return {
+        kind:"PROGRAM",
+        value:arrayOfStatments
+
+       }
     }
 
 

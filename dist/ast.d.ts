@@ -23,4 +23,8 @@ export type ReturnStmt = {
     kind: "RETURN";
     value: Expr;
 };
+export type Program = {
+    kind: "PROGRAM";
+    value: Stmt[];
+};
 //# sourceMappingURL=ast.d.ts.map

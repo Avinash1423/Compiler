@@ -21,4 +21,12 @@ export type Stmt=LetStmt | ReturnStmt;
  export type ReturnStmt={
                         kind:"RETURN",
                         value:Expr
-                    }                   
+                    }  
+                    
+                    
+
+export type Program={
+     kind:"PROGRAM",
+     value:Stmt[];
+
+             }

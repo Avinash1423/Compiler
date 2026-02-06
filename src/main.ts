@@ -3,9 +3,8 @@ import * as readline from "readline";
 import { Lexer } from "./lexer.js";
 import { Token } from "./token.js";
 import { Parser } from "./parser.js";
-import type { Expr } from "./ast.js";
 //import { Evaluator } from "./evalutaor.js";
-import type {Stmt} from "./ast.js";
+import type {Program}  from "./ast.js";
 
 
   const read= async ():Promise<string>=>{
@@ -45,14 +44,14 @@ while(true){
 
       const parser=new Parser(tokens);
 
-       const parsedOutput:Stmt[]=parser.parse();
+       const parsedOutput:Program=parser.parse();
 
        console.log(tokens);
 
        console.log(parsedOutput);
 
 
-       
+
 
 
 /**

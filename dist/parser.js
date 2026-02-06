@@ -25,12 +25,14 @@ export class Parser {
         throw new Error('Undentified Token ' + this.peek().value);
     }
     parse() {
-        let arrayOfStatments = [];
+        let arrayOfStatments = []; //body
         while (this.peek().type !== "EOF") {
             arrayOfStatments.push(this.statment());
         }
-        return arrayOfStatments;
-        // return this.expression();
+        return {
+            kind: "PROGRAM",
+            value: arrayOfStatments
+        };
     }
     statment() {
         if (this.match("LET")) {
