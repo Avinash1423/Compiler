@@ -4,7 +4,8 @@ import { Lexer } from "./lexer.js";
 import { Token } from "./token.js";
 import { Parser } from "./parser.js";
 import type { Expr } from "./ast.js";
-import { Evaluator } from "./evalutaor.js";
+//import { Evaluator } from "./evalutaor.js";
+import type {Stmt} from "./ast.js";
 
 
   const read= async ():Promise<string>=>{
@@ -44,7 +45,17 @@ while(true){
 
       const parser=new Parser(tokens);
 
-       const parsedOutput :Expr=parser.parse();
+       const parsedOutput:Stmt[]=parser.parse();
+
+       console.log(tokens);
+
+       console.log(parsedOutput);
+
+
+       
+
+
+/**
 
        const evaluator=new Evaluator();
 
@@ -52,7 +63,7 @@ while(true){
 
         console.log(solution);
   
-  
+ */
 
 }
  

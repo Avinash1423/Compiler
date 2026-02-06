@@ -1,8 +1,6 @@
 export type TokenType=
              "NUMBER"|
              "IDENTIFIER"|
-             "TRUE"|
-             "FALSE"|
              "LET"|
              "PLUS"|
              "MINUS"|
@@ -11,7 +9,6 @@ export type TokenType=
              "OPEN-BRACKET"|
              "CLOSE-BRACKET"|
              "EQUALS"|
-             "EXCLAMATION"|
              "COLON"|
              "SEMI-COLON"|
              "COMMA"|

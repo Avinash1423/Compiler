@@ -25,14 +25,44 @@ export class Parser {
         throw new Error('Undentified Token ' + this.peek().value);
     }
     parse() {
-        return this.expression();
+        let arrayOfStatments = [];
+        while (this.peek().type !== "EOF") {
+            arrayOfStatments.push(this.statment());
+        }
+        return arrayOfStatments;
+        // return this.expression();
+    }
+    statment() {
+        if (this.match("LET")) {
+            const nameVal = this.expect("IDENTIFIER").value;
+            this.expect("EQUALS");
+            const initializerVal = this.expression();
+            this.expect("SEMI-COLON");
+            return {
+                kind: "LET",
+                name: nameVal,
+                initializer: initializerVal
+            };
+        }
+        if (this.match("RETURN")) {
+            const returnVal = this.expression();
+            this.expect("SEMI-COLON");
+            return {
+                kind: "RETURN",
+                value: returnVal
+            };
+        }
+        //dont return the expression just do it
+        const expressionExpr = this.expression();
+        this.expect("SEMI-COLON");
+        throw new Error("Error in statment ");
     }
     expression() {
         let left = this.term();
         while (this.match("PLUS", "MINUS")) {
             let operator = this.tokens[this.pos - 1]?.value;
             let right = this.term();
-            return {
+            left = {
                 kind: "BINARYEXPR",
                 value: operator,
                 left: left,
@@ -46,7 +76,7 @@ export class Parser {
         while (this.match("DIVIDE", "MULTIPLY", "MODULUS")) {
             let operator = this.tokens[this.pos - 1]?.value;
             let right = this.factor();
-            return {
+            left = {
                 kind: "BINARYEXPR",
                 value: operator,
                 left: left,

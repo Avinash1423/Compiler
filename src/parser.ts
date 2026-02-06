@@ -1,12 +1,12 @@
 import {Token } from "./token.js";
 import type { Expr } from "./ast.js";
+import type {Stmt} from "./ast.js"
 
 export class Parser{
 
 
    constructor( private tokens:Token[]) {}
 
- 
     pos:number=0;
 
    private advance():Token{
@@ -45,28 +45,84 @@ export class Parser{
     }
 
 
+    parse():Stmt[]{
 
+        let arrayOfStatments:Stmt[]=[];
 
+     while(this.peek().type !=="EOF"){
 
-    parse():Expr{
+        arrayOfStatments.push(this.statment());
+     }   
 
-        return this.expression();
+       
+       return arrayOfStatments;
+      // return this.expression();
     }
 
+
+    private statment():Stmt{
+
+        if(this.match("LET")){
+
+            const nameVal=this.expect("IDENTIFIER").value;
+
+            this.expect("EQUALS")
+
+            const initializerVal:Expr=this.expression();
+
+            this.expect("SEMI-COLON");
+
+            return{
+
+                kind:"LET",
+                name:nameVal,
+                initializer:initializerVal
+
+            }; 
+      
+        }  
+
+
+         if(this.match("RETURN")){
+
+
+            const returnVal:Expr=this.expression();
+
+              this.expect("SEMI-COLON");
+            
+              return{
+
+                kind:"RETURN",
+                value:returnVal
+
+            }; 
+
+          
+          
+         }
+
+       //dont return the expression just do it
+
+        const expressionExpr=this.expression();
+        this.expect("SEMI-COLON");
+       
     
+
+      throw new Error("Error in statment ");
+
+    }
+
      
     private expression():Expr{
-
+    
         let left=this.term();
-
 
         while(this.match("PLUS","MINUS")){
          
         let operator=this.tokens[this.pos-1]?.value!;
         let right=this.term();
-
         
-        return {
+        left= {
 
             kind:"BINARYEXPR",
             value:operator,
@@ -77,10 +133,9 @@ export class Parser{
 
     }
      return left;
-
-     }
-
-
+    }
+     
+    
     private term():Expr{
        
         let left=this.factor();
@@ -90,11 +145,9 @@ export class Parser{
         let operator=this.tokens[this.pos-1]?.value!;
         let right=this.factor();
             
-        
+        left={
 
-        return{
-
-            kind:"BINARYEXPR" ,
+            kind:"BINARYEXPR",
             value:operator,
             left:left,
             right:right
@@ -144,5 +197,5 @@ export class Parser{
 }
 
        
-
 }
+

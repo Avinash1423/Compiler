@@ -1,5 +1,5 @@
 import { Token } from "./token.js";
-import type { Expr } from "./ast.js";
+import type { Stmt } from "./ast.js";
 export declare class Parser {
     private tokens;
     constructor(tokens: Token[]);
@@ -8,7 +8,8 @@ export declare class Parser {
     private peek;
     private match;
     private expect;
-    parse(): Expr;
+    parse(): Stmt[];
+    private statment;
     private expression;
     private term;
     private factor;

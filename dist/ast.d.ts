@@ -13,4 +13,14 @@ export type BinaryExpr = {
     left: Expr;
     right: Expr;
 };
+export type Stmt = LetStmt | ReturnStmt;
+export type LetStmt = {
+    kind: "LET";
+    name: string;
+    initializer: Expr;
+};
+export type ReturnStmt = {
+    kind: "RETURN";
+    value: Expr;
+};
 //# sourceMappingURL=ast.d.ts.map

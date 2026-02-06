@@ -79,17 +79,8 @@ import {Token } from "./token.js";
                 default:
                     this.tokens.push(new Token( "IDENTIFIER",word));
                     break;
-
-                case "true" :
-                      this.tokens.push(new Token("TRUE",word));
-                      break;
-
                 
-                case "false" :
-                      this.tokens.push(new Token( "FALSE",word));
-                       break;
-                
-                case "let" :
+                case "LET" :
                       this.tokens.push(new Token( "LET",word));
                        break;
             } 
@@ -143,16 +134,10 @@ import {Token } from "./token.js";
                   this.tokens.push(new Token("COLON",this.advance()));
                    break;
 
-            case "!":
-                  this.tokens.push(new Token("EXCLAMATION",this.advance()));
-                   break;
-
              case "%":
                   this.tokens.push(new Token("MODULUS",this.advance()));
                    break;
-            
-            
-        
+              
           }
 
            continue;
