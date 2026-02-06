@@ -40,7 +40,7 @@ export class Parser{
 
         }
 
-     throw new Error('Undentified Token '+this.peek().value);    
+     throw new Error('Undentified Token '+ this.peek().value);    
 
 
     }
@@ -101,16 +101,7 @@ export class Parser{
 
             }; 
 
-          
-          
          }
-
-       //dont return the expression just do it
-
-        const expressionExpr=this.expression();
-        this.expect("SEMI-COLON");
-       
-    
 
       throw new Error("Error in statment ");
 

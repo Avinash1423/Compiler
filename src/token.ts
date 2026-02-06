@@ -4,6 +4,7 @@ export type TokenType=
              "LET"|
              "PLUS"|
              "MINUS"|
+             "RETURN"|
              "DIVIDE"|
              "MULTIPLY"|
              "OPEN-BRACKET"|

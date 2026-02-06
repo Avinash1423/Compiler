@@ -5,6 +5,7 @@ import { Token } from "./token.js";
 import { Parser } from "./parser.js";
 //import { Evaluator } from "./evalutaor.js";
 import type {Program}  from "./ast.js";
+import { Analyze } from "./analyze.js";
 
 
   const read= async ():Promise<string>=>{
@@ -44,14 +45,11 @@ while(true){
 
       const parser=new Parser(tokens);
 
-       const parsedOutput:Program=parser.parse();
+      const parsedOutput:Program=parser.parse();
 
-       console.log(tokens);
+      const analyzer=new Analyze();
 
-       console.log(parsedOutput);
-
-
-
+     analyzer.analyzeProgram(parsedOutput);
 
 
 /**

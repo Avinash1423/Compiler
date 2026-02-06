@@ -51,6 +51,9 @@ export class Lexer {
                     case "LET":
                         this.tokens.push(new Token("LET", word));
                         break;
+                    case "RETURN":
+                        this.tokens.push(new Token("RETURN", word));
+                        break;
                 }
                 continue;
             }

@@ -54,9 +54,6 @@ export class Parser {
                 value: returnVal
             };
         }
-        //dont return the expression just do it
-        const expressionExpr = this.expression();
-        this.expect("SEMI-COLON");
         throw new Error("Error in statment ");
     }
     expression() {
