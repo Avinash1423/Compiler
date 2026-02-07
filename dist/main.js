@@ -3,6 +3,8 @@ import { Lexer } from "./lexer.js";
 import { Token } from "./token.js";
 import { Parser } from "./parser.js";
 import { Analyze } from "./analyze.js";
+import { runProgram } from "./programRun.js";
+import { environment } from "./environment.js";
 const read = async () => {
     const reader = readline.createInterface({
         input: process.stdin,
@@ -33,6 +35,8 @@ const main = async () => {
         const parsedOutput = parser.parse();
         const analyzer = new Analyze();
         analyzer.analyzeProgram(parsedOutput);
+        let env = new environment();
+        return runProgram(parsedOutput, env);
         /**
         
                const evaluator=new Evaluator();

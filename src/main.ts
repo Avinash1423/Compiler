@@ -3,9 +3,10 @@ import * as readline from "readline";
 import { Lexer } from "./lexer.js";
 import { Token } from "./token.js";
 import { Parser } from "./parser.js";
-//import { Evaluator } from "./evalutaor.js";
 import type {Program}  from "./ast.js";
 import { Analyze } from "./analyze.js";
+import { runProgram } from "./programRun.js";
+import { environment } from "./environment.js";
 
 
   const read= async ():Promise<string>=>{
@@ -49,7 +50,19 @@ while(true){
 
       const analyzer=new Analyze();
 
-     analyzer.analyzeProgram(parsedOutput);
+      analyzer.analyzeProgram(parsedOutput);
+
+       let env= new environment();
+       
+       return runProgram(parsedOutput,env);
+       
+
+
+    
+
+
+
+
 
 
 /**

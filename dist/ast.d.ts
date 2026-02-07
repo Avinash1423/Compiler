@@ -27,4 +27,14 @@ export type Program = {
     kind: "PROGRAM";
     value: Stmt[];
 };
+export type runTimeValue = {
+    kind: "integer";
+    value: number;
+} | {
+    kind: "boolean";
+    value: boolean;
+} | {
+    kind: "string";
+    value: string;
+};
 //# sourceMappingURL=ast.d.ts.map
