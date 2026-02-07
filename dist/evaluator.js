@@ -18,33 +18,34 @@ export const evalExpr = (expr, env) => {
         case "BINARYEXPR":
             const left = evalExpr(expr.left, env);
             const right = evalExpr(expr.right, env);
-            switch (expr.value) {
-                case "+":
-                    if (left.kind == "integer" && right.kind == "integer")
-                        return { kind: "integer", value: left.value + right.value };
-                    else
-                        throw new Error("Cannot perform aritmetic on types " + left.kind + " and " + right.kind);
-                case "-":
-                    if (left.kind == "integer" && right.kind == "integer")
-                        return { kind: "integer", value: left.value - right.value };
-                    else
-                        throw new Error("Cannot perform aritmetic on types " + left.kind + " and " + right.kind);
-                case "/":
-                    if (left.kind == "integer" && right.kind == "integer") {
-                        if (right.value !== 0) {
-                            return { kind: "integer", value: left.value / right.value };
+            if (left.kind == "integer" && right.kind == "integer")
+                switch (expr.value) {
+                    case "+":
+                        if (left.kind == "integer" && right.kind == "integer")
+                            return { kind: "integer", value: left.value + right.value };
+                        else
+                            throw new Error("Cannot perform aritmetic on types " + left.kind + " and " + right.kind);
+                    case "-":
+                        if (left.kind == "integer" && right.kind == "integer")
+                            return { kind: "integer", value: left.value - right.value };
+                        else
+                            throw new Error("Cannot perform aritmetic on types " + left.kind + " and " + right.kind);
+                    case "/":
+                        if (left.kind == "integer" && right.kind == "integer") {
+                            if (right.value !== 0) {
+                                return { kind: "integer", value: left.value / right.value };
+                            }
+                            else
+                                throw new Error("Cannot divide by 0");
                         }
                         else
-                            throw new Error("Cannot divide by 0");
-                    }
-                    else
-                        throw new Error("Cannot perform aritmetic on types " + left.kind + " and " + right.kind);
-                case "*":
-                    if (left.kind == "integer" && right.kind == "integer")
-                        return { kind: "integer", value: left.value * right.value };
-                    else
-                        throw new Error("Cannot perform aritmetic on types " + left.kind + " and " + right.kind);
-            }
+                            throw new Error("Cannot perform aritmetic on types " + left.kind + " and " + right.kind);
+                    case "*":
+                        if (left.kind == "integer" && right.kind == "integer")
+                            return { kind: "integer", value: left.value * right.value };
+                        else
+                            throw new Error("Cannot perform aritmetic on types " + left.kind + " and " + right.kind);
+                }
     }
     throw new Error("Unable to define " + expr.kind);
 };

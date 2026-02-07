@@ -17,7 +17,19 @@ const read = async () => {
         });
     });
 };
+function compile(input, env) {
+    const lexer = new Lexer(input);
+    const tokens = lexer.tokenize();
+    const parser = new Parser(tokens);
+    const parsedOutput = parser.parse();
+    const analyzer = new Analyze();
+    analyzer.analyzeProgram(parsedOutput);
+    let result = runProgram(parsedOutput, env);
+    if (result !== null)
+        console.log(result);
+}
 const main = async () => {
+    let env = new environment();
     while (true) {
         const input = await read();
         if (input === "#exit") {
@@ -29,23 +41,7 @@ const main = async () => {
             console.log(">> ");
             continue;
         }
-        const lexer = new Lexer(input);
-        const tokens = lexer.tokenize();
-        const parser = new Parser(tokens);
-        const parsedOutput = parser.parse();
-        const analyzer = new Analyze();
-        analyzer.analyzeProgram(parsedOutput);
-        let env = new environment();
-        return runProgram(parsedOutput, env);
-        /**
-        
-               const evaluator=new Evaluator();
-        
-              const solution= evaluator.evaluate(parsedOutput);
-        
-                console.log(solution);
-          
-         */
+        compile(input, env);
     }
 };
 main();

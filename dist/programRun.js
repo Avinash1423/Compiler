@@ -3,10 +3,9 @@ import { evalStmt } from "./evaluator.js";
 export const runProgram = (parsedAST, globalEnv) => {
     for (const stmt of parsedAST.value) {
         let returnVal = evalStmt(stmt, globalEnv);
-        if (returnVal)
+        if (returnVal !== null)
             return returnVal;
-        else
-            throw new Error("Error running program " + stmt);
     }
+    return null;
 };
 //# sourceMappingURL=programRun.js.map

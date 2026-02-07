@@ -9,11 +9,13 @@ export  const runProgram=(parsedAST:Program,globalEnv:environment)=>{
 
     let returnVal=evalStmt(stmt,globalEnv);
 
-    if(returnVal) return returnVal;
-    else
-      throw new Error("Error running program "+stmt);
-
+    if(returnVal!==null) return returnVal;
+    
   }
+
+  return null;
+
+
 
 }
 

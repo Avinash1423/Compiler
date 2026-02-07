@@ -23,8 +23,29 @@ import { environment } from "./environment.js";
 });
 
  }
+    function compile(input:string,env:environment){
+        
+      const lexer=new Lexer(input);
 
+      const tokens :Token[]=lexer.tokenize();
+
+      const parser=new Parser(tokens);
+
+      const parsedOutput:Program=parser.parse();
+
+      const analyzer=new Analyze();
+
+      analyzer.analyzeProgram(parsedOutput);
+
+      let result=runProgram(parsedOutput,env);
+
+       if(result!==null) console.log(result);
+   }
+
+   
  const main=async()=>{
+
+   let env= new environment();
 
 while(true){
  
@@ -39,42 +60,9 @@ while(true){
         console.log(">> ");
         continue;
     } 
+
+    compile(input,env);
     
-      const lexer=new Lexer(input);
-
-      const tokens :Token[]=lexer.tokenize();
-
-      const parser=new Parser(tokens);
-
-      const parsedOutput:Program=parser.parse();
-
-      const analyzer=new Analyze();
-
-      analyzer.analyzeProgram(parsedOutput);
-
-       let env= new environment();
-       
-       return runProgram(parsedOutput,env);
-       
-
-
-    
-
-
-
-
-
-
-/**
-
-       const evaluator=new Evaluator();
-
-      const solution= evaluator.evaluate(parsedOutput);
-
-        console.log(solution);
-  
- */
-
 }
  
 }

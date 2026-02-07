@@ -37,7 +37,11 @@ export const evalExpr=(expr:Expr,env:environment):runTimeValue=>{
            const left=evalExpr(expr.left,env);
            const right=evalExpr(expr.right,env);
 
+              if(left.kind=="integer" && right.kind=="integer")
+
            switch(expr.value){
+
+          
 
             case "+":
                 if(left.kind=="integer" && right.kind=="integer")
