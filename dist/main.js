@@ -5,18 +5,10 @@ import { Parser } from "./parser.js";
 import { Analyze } from "./analyze.js";
 import { runProgram } from "./programRun.js";
 import { environment } from "./environment.js";
-const read = async () => {
-    const reader = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-    });
-    return new Promise((resolve) => {
-        reader.question(">>>", (line) => {
-            reader.close();
-            resolve(line);
-        });
-    });
-};
+const reader = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
 function compile(input, env) {
     const lexer = new Lexer(input);
     const tokens = lexer.tokenize();
@@ -30,19 +22,35 @@ function compile(input, env) {
 }
 const main = async () => {
     let env = new environment();
-    while (true) {
-        const input = await read();
-        if (input === "#exit") {
+    let buffer = [];
+    reader.setPrompt(">>>");
+    reader.prompt();
+    reader.on("line", (input) => {
+        if (input === ": exit") {
             console.log("Exiting....");
-            break;
+            return;
         }
-        if (input === "#clear") {
+        if (input === ": clear") {
             console.clear();
-            console.log(">> ");
-            continue;
+            reader.setPrompt(">>>");
+            reader.prompt();
         }
-        compile(input, env);
-    }
+        if (input === ": run") {
+            compile(buffer.join("\n"), env);
+            reader.setPrompt(">>>");
+            reader.prompt();
+        }
+        if (input === ": reset") {
+            buffer = [];
+            reader.setPrompt(">>>");
+            reader.prompt();
+        }
+        if (!input.startsWith(": ")) {
+            buffer.push(input);
+            reader.setPrompt("  ");
+            reader.prompt();
+        }
+    });
 };
 main();
 //# sourceMappingURL=main.js.map

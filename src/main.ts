@@ -9,20 +9,12 @@ import { runProgram } from "./programRun.js";
 import { environment } from "./environment.js";
 
 
-  const read= async ():Promise<string>=>{
- const reader=readline.createInterface({
+const reader=readline.createInterface({
     input: process.stdin,
     output: process.stdout,
   });
 
-  return new Promise<string>((resolve)=>{
-  reader.question(">>>",(line:string)=>{
-    reader.close();
-     resolve(line);
-  });
-});
-
- }
+  
     function compile(input:string,env:environment){
         
       const lexer=new Lexer(input);
@@ -46,25 +38,51 @@ import { environment } from "./environment.js";
  const main=async()=>{
 
    let env= new environment();
+   let buffer: String[]=[];
+       reader.setPrompt(">>>");
+       reader.prompt();
 
-while(true){
+reader.on("line",(input:string)=>{
+
  
-    const input:string=await read();
-
-    if(input==="#exit"){
+    if(input===": exit"){
         console.log("Exiting....")
-        break;
+        return;
+      
     } 
-    if(input==="#clear"){
+    if(input===": clear"){
         console.clear();
-        console.log(">> ");
-        continue;
+        reader.setPrompt(">>>");
+        reader.prompt();
+      
     } 
 
-    compile(input,env);
-    
-}
- 
-}
+    if(input===": run"){
+        
+    compile(buffer.join("\n"),env);
+        reader.setPrompt(">>>");
+        reader.prompt();
+  
+    }
 
+    if(input===": reset"){
+        
+        buffer=[];
+        reader.setPrompt(">>>");
+        reader.prompt();
+
+    }
+
+       if(!input.startsWith(": ")){ 
+        buffer.push(input);
+        reader.setPrompt("  ");
+        reader.prompt();
+       }
+
+  }
+ 
+);
+ 
+
+ }
 main();
